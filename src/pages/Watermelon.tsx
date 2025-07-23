@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
+import { getAssetPath } from "../utils/assets";
 
 // Set document title
 document.title = "A Letter for Thea";
@@ -229,7 +230,7 @@ export default function Watermelon() {
         style={{ zIndex: 2 }}
       >
         <motion.img
-          src="/images/sprites/watermelon-sprite.png"
+          src={getAssetPath("images/sprites/watermelon-sprite.png")}
           alt="Watermelon"
           className="w-32 h-32 sm:w-40 sm:h-40 select-none"
           initial={{ y: 0 }}
@@ -309,7 +310,7 @@ export default function Watermelon() {
               our relationship. I can't give you anything because I don't have anything to give in the first place, even if I wanted to.
             </p>
             <p className="text-base sm:text-lg leading-relaxed">
-              Kaya Tey, I'm sorry. I'm sorry for not being true to us. I'm sorry for diving into something deep, I don't even know how to swim. I'm sorry 
+              Kaya Tey, I'm sorry. I'm sorry for not being true to us. Sorry for being immature. I'm sorry for diving into something deep, I don't even know how to swim. I'm sorry 
               for being so over-imaginative, naive, and falsely optimistic, saying and bosting things I can't stand up to. Sorry for not being the 
               boyfriend you envisioned me to be.
             </p>
@@ -336,7 +337,8 @@ export default function Watermelon() {
             <div className="text-center mb-8">
             <span className="italic text-green-700 text-base sm:text-lg" style={{ fontFamily: 'Minecraft, monospace' }}>
               I will forever cherish the memories we had, good and bad. Bad memories as lessons not to repeat and good memories as treasures to keep. I love you Tey, 
-              and I will forever admire and love you as long as I live. May Jehovah bless you and keep you and your family safe.
+              and I will forever admire and love you as long as I live. May Jehovah bless you and keep you and your family safe. Didiboi miss you so much! (He's in the bottom of this letter HAHA). 
+              Please say hi to Naru for me! 
             </span>
           </div>
             <div className="pt-8 border-t border-green-200/30 mt-8">
@@ -347,7 +349,7 @@ export default function Watermelon() {
             </div>
             {/* Didiboi sprite with meow speech */}
             <div className="flex flex-col items-center mt-10 mb-2" style={{ position: 'relative' }}>
-              <img src="/images/sprites/didiboi-sprite.png" alt="Didiboi Sprite" className="w-24 h-24 mb-2 select-none" draggable={false} />
+              <img src={getAssetPath("images/sprites/didiboi-sprite.png")} alt="Didiboi Sprite" className="w-24 h-24 mb-2 select-none" draggable={false} />
               <FlickerMeow />
             </div>
           </div>

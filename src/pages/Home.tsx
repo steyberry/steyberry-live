@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { getAssetPath } from "../utils/assets";
 
 // Set document title
 document.title = "Choose Your Fruit";
@@ -68,7 +69,7 @@ export default function Home() {
           aria-label="Select Strawberry"
         >
           <motion.img
-            src="/images/sprites/strawberry-sprite.png"
+            src={getAssetPath("images/sprites/strawberry-sprite.png")}
             alt="Strawberry"
             className="w-32 h-32 sm:w-40 sm:h-40 select-none"
             initial={{ y: 0 }}
@@ -126,7 +127,7 @@ export default function Home() {
           aria-label="Select Watermelon"
         >
           <motion.img
-            src="/images/sprites/watermelon-sprite.png"
+            src={getAssetPath("images/sprites/watermelon-sprite.png")}
             alt="Watermelon"
             className="w-32 h-32 sm:w-40 sm:h-40 select-none"
             initial={{ y: 0 }}

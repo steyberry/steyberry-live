@@ -1,16 +1,17 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { getAssetPath } from "../utils/assets";
 
 const images = [
-  "/images/tey.jpg",
-  "/images/tey2.jpg",
-  "/images/tey3.jpg",
-  "/images/tey4.jpg",
-  "/images/tey5.jpg",
-  "/images/tey6.png",
-  "/images/tey7.png",
-  "/images/tey8.jpg",
+  "images/tey.jpg",
+  "images/tey2.jpg",
+  "images/tey3.jpg",
+  "images/tey4.jpg",
+  "images/tey5.jpg",
+  "images/tey6.png",
+  "images/tey7.png",
+  "images/tey8.jpg",
 ];
 
 // Set document title
@@ -63,7 +64,7 @@ export default function Steyberry() {
       {tiaSprites.map((sprite, i) => (
         <img
           key={i}
-          src="/images/sprites/tia-sprite.png"
+          src={getAssetPath("images/sprites/tia-sprite.png")}
           alt="Tia Sprite"
           style={{
             position: 'absolute',
@@ -82,7 +83,7 @@ export default function Steyberry() {
       {/* Strawberry sprite on top, matching watermelon page */}
       <div className="relative mt-10 mb-2 flex justify-center">
         <motion.img
-          src="/images/sprites/strawberry-sprite.png"
+          src={getAssetPath("images/sprites/strawberry-sprite.png")}
           alt="Strawberry"
           className="w-32 h-32 sm:w-40 sm:h-40 select-none"
           style={{ filter: 'drop-shadow(0 0 20px rgba(244, 63, 94, 0.3))' }}
@@ -170,7 +171,7 @@ export default function Steyberry() {
                   {/* Tia sprite inside the card, at the bottom */}
                   <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: 18 }}>
                     <img
-                      src="/images/sprites/tia-sprite.png"
+                      src={getAssetPath("images/sprites/tia-sprite.png")}
                       alt="Tia Sprite"
                       style={{ width: 100, height: 100, imageRendering: 'pixelated', filter: 'drop-shadow(0 0 8px #fb7185)' }}
                       draggable={false}
@@ -209,7 +210,7 @@ export default function Steyberry() {
                     ease: "easeInOut"
                   }}
                 >
-                  <img src={item} alt={`Gallery ${idx + 1}`} className="gallery-img" style={{ fontFamily: 'Minecraft, monospace' }} />
+                  <img src={getAssetPath(item)} alt={`Gallery ${idx + 1}`} className="gallery-img" style={{ fontFamily: 'Minecraft, monospace' }} />
                 </motion.div>
               );
             } else {

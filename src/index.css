@@ -118,9 +118,9 @@ body {
   color: #222;
 }
 
-/* Custom cursor */
+/* Custom cursor - will be set dynamically by JavaScript */
 body, .custom-cursor {
-  cursor: url('/cursor/color-pixels-mem-cats-pointer.png') 0 0, auto;
+  cursor: auto;
 }
 
 /* Reading progress indicator */
