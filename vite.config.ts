@@ -5,7 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig(({ command }) => ({
   plugins: [react(), tailwindcss(), tsconfigPaths()],
-  base: command === 'build' ? '/steyberry/' : '/',
+  base: command === 'build' ? '/steyberry-live/' : '/',
   build: {
     outDir: "dist",
   },

@@ -4,12 +4,12 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
 
-// Get base path from the HTML base tag or default to '/'
-const basename = document.querySelector('base')?.getAttribute('href') || '/';
+// Get base path - use '/steyberry-live' for production, '/' for development
+const basename = import.meta.env.PROD ? '/steyberry-live' : '/';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter basename={basename.endsWith('/') ? basename.slice(0, -1) : basename}>
+    <BrowserRouter basename={basename}>
       <App />
     </BrowserRouter>
   </React.StrictMode>
