@@ -3,9 +3,9 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig(({ command }) => ({
+export default defineConfig(() => ({
   plugins: [react(), tailwindcss(), tsconfigPaths()],
-  base: command === 'build' ? '/steyberry-live/' : '/',
+  base: '/',
   build: {
     outDir: "dist",
   },

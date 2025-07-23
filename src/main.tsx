@@ -5,8 +5,8 @@ import App from './App';
 import './index.css';
 import { getAssetPath } from './utils/assets';
 
-// Get base path - use '/steyberry-live' for production, '/' for development
-const basename = import.meta.env.PROD ? '/steyberry-live' : '/';
+// Use root path for custom domain
+const basename = '/';
 
 // Set custom cursor
 document.body.style.cursor = `url('${getAssetPath('cursor/color-pixels-mem-cats-pointer.png')}') 0 0, auto`;

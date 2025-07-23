@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { getAssetPath } from "../utils/assets";
@@ -47,9 +47,111 @@ function getRandomSprites(count = 28) {
 const tiaSprites = getRandomSprites(28);
 
 export default function Steyberry() {
+  const [screenMeetsRequirements, setScreenMeetsRequirements] = useState(true);
+
+  // Screen size requirements check (iPad landscape minimum: 1024x768)
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const meetsRequirements = width >= 1024 && height >= 768;
+      setScreenMeetsRequirements(meetsRequirements);
+    };
+
+    // Check on mount
+    checkScreenSize();
+
+    // Check on resize
+    window.addEventListener('resize', checkScreenSize);
+    window.addEventListener('orientationchange', checkScreenSize);
+
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+      window.removeEventListener('orientationchange', checkScreenSize);
+    };
+  }, []);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Warning screen for small devices
+  if (!screenMeetsRequirements) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center relative"
+           style={{ background: 'linear-gradient(120deg, #fecaca 0%, #fca5a5 100%)' }}>
+        {/* Floating sprites */}
+        <motion.img
+          src={getAssetPath("images/sprites/strawberry-sprite.png")}
+          alt="Strawberry"
+          className="w-24 h-24 sm:w-32 sm:h-32 mb-8 select-none"
+          initial={{ y: 0 }}
+          animate={{ y: [0, -15, 0] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          style={{ filter: "drop-shadow(0 0 20px rgba(244, 63, 94, 0.3))" }}
+          draggable={false}
+        />
+
+        {/* Warning message */}
+        <div className="text-center px-6 max-w-md">
+          <h2 className="text-2xl sm:text-3xl font-bold text-red-800 mb-4"
+              style={{ fontFamily: 'Daydream, var(--font-daydream), cursive' }}>
+            Device Too Small!
+          </h2>
+          <p className="text-lg text-red-700 mb-4"
+             style={{ fontFamily: 'Minecraft, monospace' }}>
+            This website requires a larger screen for the best experience.
+          </p>
+          <p className="text-base text-red-600"
+             style={{ fontFamily: 'Minecraft, monospace' }}>
+            Minimum requirement: iPad in landscape mode (1024×768)
+          </p>
+          <p className="text-sm text-red-500 mt-4"
+             style={{ fontFamily: 'Minecraft, monospace' }}>
+            📱 If you're on an iPad, please rotate to landscape mode
+          </p>
+        </div>
+
+        {/* Decorative sprites */}
+        <div className="absolute top-10 left-10">
+          <motion.div
+            className="text-4xl"
+            animate={{ rotate: [0, 10, -10, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          >
+            🍓
+          </motion.div>
+        </div>
+        <div className="absolute top-20 right-16">
+          <motion.div
+            className="text-3xl"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          >
+            🍉
+          </motion.div>
+        </div>
+        <div className="absolute bottom-20 left-20">
+          <motion.div
+            className="text-3xl"
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          >
+            💚
+          </motion.div>
+        </div>
+        <div className="absolute bottom-16 right-12">
+          <motion.div
+            className="text-2xl"
+            animate={{ rotate: [0, -15, 15, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+          >
+            ✨
+          </motion.div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
