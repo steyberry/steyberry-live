@@ -1,20 +1,28 @@
 {
   "name": "steyberry",
+  "homepage": "https://steyberry.github.io/steyberry-live/",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "react-router typegen && tsc",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
+    "@react-spring/web": "^10.0.1",
+    "aos": "^2.3.4",
+    "framer-motion": "^12.23.6",
+    "gh-pages": "^6.3.0",
     "isbot": "^5.1.27",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router": "^7.5.3"
+    "react-router": "^7.5.3",
+    "react-spring": "^10.0.1"
   },
   "devDependencies": {
     "@react-router/dev": "^7.5.3",

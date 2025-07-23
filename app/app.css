@@ -1,15 +1,301 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+/* Custom Daydream Font */
+@font-face {
+  font-family: 'Daydream';
+  src: url('/fonts/Daydream.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
+@font-face {
+  font-family: 'Minecraft';
+  src: url('/fonts/Minecraft.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-handwriting: "Kalam", cursive;
+  --font-daydream: "Daydream", "Dancing Script", cursive;
+
+  /* Enhanced Green Color Palette */
+  --color-green-50: #ecfdf5;
+  --color-green-100: #d1fae5;
+  --color-green-200: #a7f3d0;
+  --color-green-300: #6ee7b7;
+  --color-green-400: #34d399;
+  --color-green-500: #10b981;
+  --color-green-600: #059669;
+  --color-green-700: #047857;
+  --color-green-800: #065f46;
+  --color-green-900: #064e3b;
+}
+
+/* Base styles */
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-white min-h-screen;
+  font-family: var(--font-sans);
+  font-weight: 400;
+}
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+/* Smooth transitions */
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Steyberry Gallery Styles */
+.gallery-bg {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #fefefe 0%, #e6f6e6 100%);
+  padding: 0 0 80px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gallery-title {
+  font-family: 'Daydream', var(--font-daydream), cursive;
+  font-size: 2.3rem;
+  color: var(--color-green-700);
+  margin: 48px 0 24px 0;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 8px;
+}
+
+.pixel-frame {
+  background: repeating-linear-gradient(135deg, #22c55e 0 4px, #fff 4px 8px);
+  border: 4px solid #22c55e;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(34,197,94,0.13);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.gallery-img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  image-rendering: pixelated;
+  box-shadow: 0 2px 8px #d1fae5;
+}
+
+/* Pixel paper background for letter */
+.pixel-paper {
+  background-color: #f8fafc;
+  background-image:
+    repeating-linear-gradient(0deg, #e2e8f0 0px, #e2e8f0 1px, transparent 1px, transparent 24px),
+    repeating-linear-gradient(90deg, #e2e8f0 0px, #e2e8f0 1px, transparent 1px, transparent 24px);
+  box-shadow: 0 4px 32px 0 rgba(34,197,94,0.10);
+  border-radius: 12px;
+  border: 2px solid #b6e4c6;
+  position: relative;
+}
+
+.letter-minecraft {
+  font-family: 'Minecraft', monospace;
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
+  color: #222;
+}
+
+/* Custom cursor */
+body, .custom-cursor {
+  cursor: url('/cursor/color-pixels-mem-cats-pointer.png') 0 0, auto;
+}
+
+/* Reading progress indicator */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(34, 197, 94, 0.1);
+  z-index: 1000;
+}
+
+.reading-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #34d399);
+  transition: width 0.3s ease;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Cursor particle trail */
+.cursor-particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: particleFade 1.5s ease-out forwards;
+  z-index: 1000;
+}
+
+@keyframes particleFade {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+}
+
+/* Floating particle animations */
+.floating-particle {
+  position: fixed;
+  font-size: 24px;
+  pointer-events: none;
+  z-index: 1000;
+  animation: floatingParticle 5s ease-out forwards;
+}
+
+.butterfly-release {
+  animation: butterflyFloat 6s ease-out forwards;
+}
+
+@keyframes floatingParticle {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-200px) scale(0.8);
+  }
+}
+
+@keyframes butterflyFloat {
+  0% {
+    opacity: 1;
+    transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-100px) translateX(50px) rotate(180deg) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-300px) translateX(-30px) rotate(360deg) scale(0.7);
+  }
+}
+
+/* Notification toast */
+.notification-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(34, 197, 94, 0.95);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+  z-index: 1000;
+  animation: toastSlideIn 0.3s ease-out;
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Cute background floating pixel hearts and sparkles */
+.cute-bg-anim {
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  animation: floatCute 4s ease-in-out infinite;
+  opacity: 0.7;
+}
+@keyframes floatCute {
+  0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.7; }
+  50% { transform: translateY(-30px) scale(1.1) rotate(8deg); opacity: 1; }
+  100% { transform: translateY(0) scale(1) rotate(-8deg); opacity: 0.7; }
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 700px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .gallery-title {
+    font-size: 1.4rem;
+    margin: 32px 0 14px 0;
+  }
+  .pixel-frame {
+    padding: 7px;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-green-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-green-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-green-400;
+}
+
+/* Enhanced focus styles for accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-green-500);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Improved text selection */
+::selection {
+  background-color: var(--color-green-200);
+  color: var(--color-green-800);
+}
+
+/* Reduce motion if preferred */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
