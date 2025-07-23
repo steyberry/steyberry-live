@@ -1,13 +1,9 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 
-export function meta() {
-  return [
-    { title: "A Letter for Thea" },
-    { name: "description", content: "Words from the heart" },
-  ];
-}
+// Set document title
+document.title = "A Letter for Thea";
 
 export default function Watermelon() {
   const [readingProgress, setReadingProgress] = useState(0);
@@ -17,6 +13,29 @@ export default function Watermelon() {
   const recipientName = "Tey"; // Fixed recipient name
   const [hovered, setHovered] = useState(false);
   const cuteBgRefs = useRef<(HTMLDivElement|null)[]>([]);
+  const [screenMeetsRequirements, setScreenMeetsRequirements] = useState(true);
+
+  // Screen size requirements check (iPad landscape minimum: 1024x768)
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const meetsRequirements = width >= 1024 && height >= 768;
+      setScreenMeetsRequirements(meetsRequirements);
+    };
+
+    // Check on mount
+    checkScreenSize();
+
+    // Check on resize
+    window.addEventListener('resize', checkScreenSize);
+    window.addEventListener('orientationchange', checkScreenSize);
+
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+      window.removeEventListener('orientationchange', checkScreenSize);
+    };
+  }, []);
 
   // Reading progress tracking
   useEffect(() => {
@@ -105,6 +124,84 @@ export default function Watermelon() {
     { left: '40%', top: '50%', emoji: '🟩' },
   ];
 
+  // Warning screen for small devices
+  if (!screenMeetsRequirements) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center relative"
+           style={{ background: 'linear-gradient(120deg, #fecaca 0%, #fca5a5 100%)' }}>
+        {/* Floating sprites */}
+        <motion.img
+          src="/images/sprites/watermelon-sprite.png"
+          alt="Watermelon"
+          className="w-24 h-24 sm:w-32 sm:h-32 mb-8 select-none"
+          initial={{ y: 0 }}
+          animate={{ y: [0, -15, 0] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          style={{ filter: "drop-shadow(0 0 20px rgba(244, 63, 94, 0.3))" }}
+          draggable={false}
+        />
+
+        {/* Warning message */}
+        <div className="text-center px-6 max-w-md">
+          <h2 className="text-2xl sm:text-3xl font-bold text-red-800 mb-4"
+              style={{ fontFamily: 'Daydream, var(--font-daydream), cursive' }}>
+            Device Too Small!
+          </h2>
+          <p className="text-lg text-red-700 mb-4"
+             style={{ fontFamily: 'Minecraft, monospace' }}>
+            This website requires a larger screen for the best experience.
+          </p>
+          <p className="text-base text-red-600"
+             style={{ fontFamily: 'Minecraft, monospace' }}>
+            Minimum requirement: iPad in landscape mode (1024×768)
+          </p>
+          <p className="text-sm text-red-500 mt-4"
+             style={{ fontFamily: 'Minecraft, monospace' }}>
+            📱 If you're on an iPad, please rotate to landscape mode
+          </p>
+        </div>
+
+        {/* Decorative sprites */}
+        <div className="absolute top-10 left-10">
+          <motion.div
+            className="text-4xl"
+            animate={{ rotate: [0, 10, -10, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          >
+            🍉
+          </motion.div>
+        </div>
+        <div className="absolute top-20 right-16">
+          <motion.div
+            className="text-3xl"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          >
+            🍓
+          </motion.div>
+        </div>
+        <div className="absolute bottom-20 left-20">
+          <motion.div
+            className="text-3xl"
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          >
+            💚
+          </motion.div>
+        </div>
+        <div className="absolute bottom-16 right-12">
+          <motion.div
+            className="text-2xl"
+            animate={{ rotate: [0, -15, 15, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+          >
+            ✨
+          </motion.div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="gallery-bg min-h-screen flex flex-col items-center relative">
       {/* Subtle SVG pattern background */}
@@ -135,11 +232,11 @@ export default function Watermelon() {
           src="/images/sprites/watermelon-sprite.png"
           alt="Watermelon"
           className="w-32 h-32 sm:w-40 sm:h-40 select-none"
+          initial={{ y: 0 }}
           animate={{ y: [0, -15, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           style={{ filter: "drop-shadow(0 0 20px rgba(34, 197, 94, 0.3))" }}
           draggable={false}
-          layoutId="watermelon-sprite"
         />
         {hovered && cuteBgElements.map((el, i) => (
           <motion.div
@@ -169,7 +266,7 @@ export default function Watermelon() {
       </div>
       {/* Pixel-style frame for the letter with pixel-paper and Minecraft font */}
       <motion.div
-        className="pixel-frame pixel-paper max-w-2xl w-full mx-auto mt-4 mb-12 bg-white/90"
+        className="pixel-frame pixel-paper max-w-5xl w-[calc(100vw-2rem)] mx-auto mt-4 mb-12 bg-white/90 px-4 sm:px-6 lg:px-8"
         style={{ fontFamily: 'Minecraft, monospace', zIndex: 1 }}
         animate={{
           y: [0, -40, 0, 40, 0],
@@ -244,7 +341,7 @@ export default function Watermelon() {
           </div>
             <div className="pt-8 border-t border-green-200/30 mt-8">
               <p className="text-base sm:text-lg leading-relaxed mb-4">With love and peace,</p>
-              <p className="text-green-700 text-xl sm:text-2xl lg:text-3xl font-medium transform -rotate-1" style={{ fontFamily: 'var(--font-handwriting)' }}>
+              <p className="text-green-700 text-xl sm:text-2xl lg:text-3xl font-medium transform -rotate-1">
                 Janzen
               </p>
             </div>

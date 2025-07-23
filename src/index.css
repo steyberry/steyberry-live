@@ -290,6 +290,59 @@ button:focus-visible {
   color: var(--color-green-800);
 }
 
+/* Gallery styles for Steyberry page */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 80vh;
+}
+
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  image-rendering: pixelated;
+  max-width: 280px;
+  max-height: 280px;
+  min-width: 200px;
+  min-height: 200px;
+}
+
+.pixel-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  margin: 0 auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .gallery-img {
+    max-width: 250px;
+    max-height: 250px;
+    min-width: 180px;
+    min-height: 180px;
+  }
+
+  .pixel-frame {
+    min-height: 200px;
+  }
+}
+
 /* Reduce motion if preferred */
 @media (prefers-reduced-motion: reduce) {
   * {

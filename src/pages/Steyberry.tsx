@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const images = [
   "/images/tey.jpg",
@@ -13,12 +13,8 @@ const images = [
   "/images/tey8.jpg",
 ];
 
-export function meta() {
-  return [
-    { title: "Steyberry Gallery" },
-    { name: "description", content: "A pixel-framed gallery for Thea (Tey)" },
-  ];
-}
+// Set document title
+document.title = "Steyberry Gallery - For Thea";
 
 // Helper for random scatter
 function getScatterStyle(idx: number) {
@@ -49,7 +45,7 @@ function getRandomSprites(count = 28) {
 
 const tiaSprites = getRandomSprites(28);
 
-export default function SteyberryGallery() {
+export default function Steyberry() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -91,7 +87,13 @@ export default function SteyberryGallery() {
           className="w-32 h-32 sm:w-40 sm:h-40 select-none"
           style={{ filter: 'drop-shadow(0 0 20px rgba(244, 63, 94, 0.3))' }}
           draggable={false}
-          layoutId="strawberry-sprite"
+          initial={{ y: 0 }}
+          animate={{ y: [0, -10, 0] }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
         />
       </div>
       {/* Subtle SVG pattern background */}
@@ -122,6 +124,7 @@ export default function SteyberryGallery() {
       >
         You chose strawberry!
       </h2>
+
       <div className="gallery-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gridTemplateRows: 'repeat(3, 1fr)' }}>
         {(() => {
           // 3x3 grid: 8 images + 1 card
@@ -161,7 +164,7 @@ export default function SteyberryGallery() {
                     Thank you, Tey <span role="img" aria-label="heart">❤️</span>
                   </div>
                   <div style={{ fontSize: '1.05rem', color: '#444', lineHeight: 1.6 }}>
-                    For all the sweet memories, the laughter, and the inspiration you brought. Take care! <br />
+                    For all the letters, the memories, the love, the laughter, and the inspiration you brought. May Jehovah bless you and your family always. Take care! <br />
                     <span style={{ color: '#fb7185', fontWeight: 600 }}>I hope you like this berry special gallery ❤️ </span>
                   </div>
                   {/* Tia sprite inside the card, at the bottom */}
@@ -216,6 +219,7 @@ export default function SteyberryGallery() {
           });
         })()}
       </div>
+
       {/* Back button floating at the bottom left for mobile/desktop */}
       <div className="fixed bottom-6 left-6 z-20">
         <Link

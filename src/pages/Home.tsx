@@ -1,42 +1,35 @@
-import { useNavigate } from "react-router";
-import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-function getRandomTilt() {
-  // Returns a random angle between -8 and 8 degrees
-  return Math.floor(Math.random() * 17) - 8;
-}
-
-export function meta() {
-  return [
-    { title: "Choose Your Fruit" },
-    { name: "description", content: "Select your fruit to begin your journey" },
-  ];
-}
+// Set document title
+document.title = "Choose Your Fruit";
 
 export default function Home() {
   const [hovered, setHovered] = useState<null | "strawberry" | "watermelon">(null);
   const [showLabel, setShowLabel] = useState<null | "strawberry" | "watermelon">(null);
-  const [labelTilt, setLabelTilt] = useState(0);
-  const labelTimeout = useRef<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
+
+  // Reset animation states when component mounts to prevent erratic behavior
+  useEffect(() => {
+    setHovered(null);
+    setShowLabel(null);
+  }, []);
 
   // Background color transitions
   let bgGradient = "linear-gradient(120deg, #fff 0%, #f8fafc 100%)";
   if (hovered === "strawberry") bgGradient = "linear-gradient(120deg, #fff0f6 0%, #ffe4ec 100%)";
   if (hovered === "watermelon") bgGradient = "linear-gradient(120deg, #e6f6e6 0%, #f8fff8 100%)";
 
-  // Handlers with debounce for label
+  // Clean handlers without debounce to prevent erratic behavior
   function handlePointerEnter(fruit: "strawberry" | "watermelon") {
-    if (labelTimeout.current) clearTimeout(labelTimeout.current);
     setHovered(fruit);
     setShowLabel(fruit);
-    setLabelTilt(getRandomTilt());
   }
+
   function handlePointerLeave() {
     setHovered(null);
-    if (labelTimeout.current) clearTimeout(labelTimeout.current);
-    labelTimeout.current = setTimeout(() => setShowLabel(null), 120);
+    setShowLabel(null);
   }
 
   return (
@@ -78,17 +71,16 @@ export default function Home() {
             src="/images/sprites/strawberry-sprite.png"
             alt="Strawberry"
             className="w-32 h-32 sm:w-40 sm:h-40 select-none"
-            layoutId="strawberry-sprite"
             initial={{ y: 0 }}
             animate={{ y: [0, -15, 0] }}
-            transition={{ 
-              duration: 2.5, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut"
             }}
-            whileHover={{ 
+            whileHover={{
               filter: "drop-shadow(0 0 20px rgba(244, 63, 94, 0.5)) brightness(1.1)",
-              scale: 1.1 
+              scale: 1.1
             }}
             whileTap={{ scale: 0.95 }}
             draggable={false}
@@ -137,18 +129,17 @@ export default function Home() {
             src="/images/sprites/watermelon-sprite.png"
             alt="Watermelon"
             className="w-32 h-32 sm:w-40 sm:h-40 select-none"
-            layoutId="watermelon-sprite"
             initial={{ y: 0 }}
             animate={{ y: [0, -15, 0] }}
-            transition={{ 
-              duration: 2.5, 
-              repeat: Infinity, 
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
               ease: "easeInOut",
-              delay: 0.5 
+              delay: 0.5
             }}
-            whileHover={{ 
+            whileHover={{
               filter: "drop-shadow(0 0 20px rgba(34, 197, 94, 0.5)) brightness(1.1)",
-              scale: 1.1 
+              scale: 1.1
             }}
             whileTap={{ scale: 0.95 }}
             draggable={false}
