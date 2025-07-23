@@ -100,11 +100,11 @@ export default function Steyberry() {
           </h2>
           <p className="text-lg text-red-700 mb-4"
              style={{ fontFamily: 'Minecraft, monospace' }}>
-            This website requires a larger screen for the best experience.
+            Hi Tey! This website requires a larger screen for the best experience.
           </p>
           <p className="text-base text-red-600"
              style={{ fontFamily: 'Minecraft, monospace' }}>
-            Minimum requirement: iPad in landscape mode (1024×768)
+            Minimum requirement: iPad in landscape mode.
           </p>
           <p className="text-sm text-red-500 mt-4"
              style={{ fontFamily: 'Minecraft, monospace' }}>
